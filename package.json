@@ -1,0 +1,29 @@
+{
+  "name": "hyperjson",
+  "version": "1.0.0",
+  "description": "an abstract datatype compatible with the hyperscript API",
+  "main": "hyperjson.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xwiki-labs/hyperjson"
+  },
+  "keywords": [
+    "hyper",
+    "json",
+    "hyperjson",
+    "hyperscript",
+    "hscript",
+    "virtual-dom",
+    "kittens",
+    "dom"
+  ],
+  "author": "ansuz",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/xwiki-labs/hyperjson/issues"
+  },
+  "homepage": "https://github.com/xwiki-labs/hyperjson"
+}
