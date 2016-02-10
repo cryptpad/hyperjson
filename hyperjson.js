@@ -39,7 +39,7 @@ define([], function () {
         return cb(hj[0], hj[1], children);
     };
 
-    var DOM2HyperJSON = function(el){
+    var fromDOM = function(el){
         if(!el.tagName && el.nodeType === Node.TEXT_NODE){
             return el.textContent;
         }
@@ -82,7 +82,7 @@ define([], function () {
         // third element of the array is an array of child nodes
         var children = [];
         for(var i = 0; i < el.childNodes.length; i++){
-          children.push(DOM2HyperJSON(el.childNodes[i]));
+          children.push(fromDOM(el.childNodes[i]));
         }
         result.push(children);
 
@@ -90,7 +90,7 @@ define([], function () {
     };
 
     return {
-        fromDOM: DOM2HyperJSON,
+        fromDOM: fromDOM,
         callOn: callOnHyperJSON
     };
 });
