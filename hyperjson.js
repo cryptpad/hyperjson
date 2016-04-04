@@ -1,5 +1,4 @@
 define([], function () {
-
     // this makes recursing a lot simpler
     var isArray = function (A) {
         return Object.prototype.toString.call(A)==='[object Array]';
@@ -17,7 +16,7 @@ define([], function () {
 
     var callOnHyperJSON = function (hj, cb) {
         var children;
-        
+
         if (hj && hj[2]) {
             children = hj[2].map(function (child) {
                 if (isArray(child)) {
@@ -39,18 +38,41 @@ define([], function () {
         return cb(hj[0], hj[1], children);
     };
 
-    var fromDOM = function(el){
+    var classify = function (token) {
+        return '.' + token.trim();
+    };
+
+    var isValidClass = function (x) {
+        if (x && /\S/.test(x)) {
+            return true;
+        }
+    };
+
+    var isTruthy = function (x) {
+        return x;
+    };
+
+    var DOM2HyperJSON = function(el, predicate, filter){
         if(!el.tagName && el.nodeType === Node.TEXT_NODE){
             return el.textContent;
         }
         if(!el.attributes){
           return;
         }
+        if (predicate) {
+            if (!predicate(el)) {
+                // shortcircuit
+                return;
+            }
+        }
+
         var attributes = {};
-        for(var i = 0; i < el.attributes.length; i++){
+
+        var i = 0;
+        for(;i < el.attributes.length; i++){
           var attr = el.attributes[i];
           if(attr.name && attr.value){
-            if(attr.name == "style"){
+            if(attr.name === "style"){
               attributes.style = parseStyle(el);
             }
             else{
@@ -67,11 +89,25 @@ define([], function () {
         var sel = el.tagName;
 
         if(attributes.id){
+            // we don't have to do much to validate IDs because the browser
+            // will only permit one id to exist
+            // unless we come across a strange browser in the wild
           sel = sel +'#'+ attributes.id;
           delete attributes.id;
         }
         if(attributes.class){
-          sel = sel +'.'+ attributes.class.replace(/ /g,".");
+            // actually parse out classes so that we produce a valid selector
+            // string. leading or trailing spaces would have caused it to choke
+            // these are really common in generated html
+            /* TODO this can be done with RegExps alone, and it will be faster
+                but this works and is a little less error prone, albeit slower
+                come back and speed it up when it comes time to optimize */
+          sel = sel + attributes.class
+            .split(/\s+/g)
+            .filter(isValidClass)
+            .map(classify)
+            .join('')
+            .replace(/\.\./g, '.');
           delete attributes.class;
         }
         result.push(sel);
@@ -81,16 +117,23 @@ define([], function () {
 
         // third element of the array is an array of child nodes
         var children = [];
-        for(var i = 0; i < el.childNodes.length; i++){
-          children.push(fromDOM(el.childNodes[i]));
-        }
-        result.push(children);
 
-        return result;
+        // js hint complains if we use 'var' here
+        i = 0;
+        for(; i < el.childNodes.length; i++){
+            children.push(DOM2HyperJSON(el.childNodes[i], predicate, filter));
+        }
+        result.push(children.filter(isTruthy));
+
+        if (filter) {
+            return filter(result);
+        } else {
+            return result;
+        }
     };
 
     return {
-        fromDOM: fromDOM,
+        fromDOM: DOM2HyperJSON,
         callOn: callOnHyperJSON
     };
 });
