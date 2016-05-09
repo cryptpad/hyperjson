@@ -1,0 +1,28 @@
+{
+  "name": "hyperjson",
+  "description": "an abstract datatype compatible with the hyperscript API",
+  "main": "hyperjson.js",
+  "authors": [
+    "ansuz"
+  ],
+  "license": "AGPL",
+  "keywords": [
+    "hyper",
+    "json",
+    "hyperjson",
+    "hyperscript",
+    "hscript",
+    "virtual-dom",
+    "kittens",
+    "dom"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
