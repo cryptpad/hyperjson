@@ -1,4 +1,4 @@
-(function () {
+define(function () {
     // this makes recursing a lot simpler
     var isArray = function (A) {
         return Object.prototype.toString.call(A)==='[object Array]';
