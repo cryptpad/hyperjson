@@ -1,4 +1,6 @@
-define(function () {
+define(function (module) {
+    module = module || {};
+
     // this makes recursing a lot simpler
     var isArray = function (A) {
         return Object.prototype.toString.call(A)==='[object Array]';
@@ -91,7 +93,6 @@ define(function () {
         }
     };
 
-    module = module || {};
     var mod = module.exports = {
         fromDOM: DOM2HyperJSON,
         callOn: callOnHyperJSON
