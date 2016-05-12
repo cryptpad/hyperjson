@@ -91,6 +91,7 @@ define(function () {
         }
     };
 
+    module = module || {};
     var mod = module.exports = {
         fromDOM: DOM2HyperJSON,
         callOn: callOnHyperJSON
