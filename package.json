@@ -1,6 +1,6 @@
 {
   "name": "hyper-json",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "an abstract datatype compatible with the hyperscript API",
   "main": "hyperjson.js",
   "scripts": {

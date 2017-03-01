@@ -90,30 +90,6 @@
         return e;
     };
 
-    var indent = function (s, n, t) {
-        return Array(n + 1).fill('').join(t) + s;
-    };
-
-    var toString = Hyperjson.toString = function (hj, depth, tab) {
-        if (typeof(hj) === 'string') { return hj; }
-        var e = document.createElement(hj[0]);
-        for (var x in hj[1]) { e.setAttribute(x, hj[1][x]); }
-        tab = typeof(tab) === 'string'? tab : '  ';
-
-        depth = (depth || 0) + 1;
-        e.innerHTML = hj[2].map(function (c, i, L) {
-            if (typeof(c) === 'string') { return c; }
-            // don't mess with whitespace in PRE tags
-            if (hj[0] === 'PRE') { return toString(c, depth, tab); }
-            // if the next element is a string, don't mess with it
-            if (typeof(L[i+1]) === 'string') { return toString(c, depth, tab); }
-            var result = '\n' + indent(toString(c, depth, tab), depth, tab) +
-                '\n' + indent('', depth - 1, tab);
-            return result;
-        }).join('');
-        return e.outerHTML;
-    };
-
     if (typeof(module) !== 'undefined' && module.exports) {
         module.exports = Hyperjson;
     } else if ((typeof(define) !== 'undefined' && define !== null) && (define.amd !== null)) {
