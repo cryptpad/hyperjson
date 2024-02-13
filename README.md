@@ -66,3 +66,7 @@ function myCallback (tagType, attributes, children) {
 The most prominent examples of callbacks are [hyperscript](https://github.com/dominictarr/hyperscript) and [virtual-hyperscript](https://github.com/Matt-Esch/virtual-dom), which produce DOM elements or virtual-DOM elements, respectively.
 
 You can create custom plugins for filtering or modifying elements, or for producing alternative data structures that adhere to a similar structure.
+
+## License
+
+This library is currently licensed as LGPL-2.1. Previous versions of this library (v1.4.0 and below) were licensed as AGPL-3.0.
