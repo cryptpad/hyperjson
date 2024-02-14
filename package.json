@@ -21,7 +21,7 @@
     "dom"
   ],
   "author": "ansuz",
-  "license": "AGPL",
+  "license": "LGPL-2.1",
   "bugs": {
     "url": "https://github.com/xwiki-labs/hyperjson/issues"
   },
